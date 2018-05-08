@@ -6,8 +6,8 @@
 		<button @click="compareCards" :disabled="!cars.length">Neue Karten vergleichen</button>
 
 		<div class="cards">
-			<card :item="leftCard" :key="1" @compare="compareWithRight" :status="leftStatus"></card>
-			<card :item="rightCard" :key="2" @compare="compareWithLeft" :status="rightStatus"></card>
+			<card :item="leftCard" v-model="compare" :winner="winner"></card>
+			<card :item="rightCard" v-model="compare" :winner="winner"></card>
 		</div>
 	</div>
 </template>
@@ -25,33 +25,23 @@
 				graveyard: [],
 				leftCard: null,
 				rightCard: null,
-				compare: null
+				compare: null,
 			}
 		},
 		computed: {
-			leftStatus() {
-				if(!this.compare) return '';
+			winner() {
+				if(!this.compare) return null;
+				if(this.leftCard.props[this.compare].value === this.rightCard.props[this.compare].value) return -1;
 
-				if(this.compare.id === this.leftCard.id) {
-					if(this.compare.value > this.rightCard.props[this.compare.prop].value) return 'winner';
-					else return 'loser';
-				}
-				else {
-					if(this.compare.value < this.leftCard.props[this.compare.prop].value) return 'winner';
-					else return 'loser';
-				}
-			},
-			rightStatus() {
-				if(!this.compare) return '';
+				let cards = [this.leftCard, this.rightCard];
 
-				if(this.compare.id === this.rightCard.id) {
-					if(this.compare.value > this.leftCard.props[this.compare.prop].value) return 'winner';
-					else return 'loser';
-				}
-				else {
-					if(this.compare.value < this.rightCard.props[this.compare.prop].value) return 'winner';
-					else return 'loser';
-				}
+				cards.sort((a, b) => {
+					if(a.props[this.compare].value > b.props[this.compare].value) return -1;
+					else return 1;
+				});
+
+				if(this.leftCard.props[this.compare].rule === 'higher-is-better') return cards[0].id;
+				else return cards[1].id;
 			}
 		},
 		methods: {
@@ -86,20 +76,6 @@
 					this.rightCard = {};
 				}
 			},
-			compareWithPos(pos, prop) {
-				this.compare = {
-					id: this[pos].id,
-					prop: prop,
-					value: this[pos].props[prop].value,
-					rule: this[pos].props[prop].rule,
-				}
-			},
-			compareWithLeft(prop) {
-				this.compareWithPos('rightCard', prop)
-			},
-			compareWithRight(prop) {
-				this.compareWithPos('leftCard', prop)
-			}
 		},
 		created() {
 			this.setDeck();

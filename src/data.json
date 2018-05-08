@@ -94,5 +94,37 @@
 		"power": 170,
 		"velocity": 6.5,
 		"weight": 1450
+	},
+	{
+		"id": 13,
+		"title": "D1",
+		"speed": 250,
+		"power": 180,
+		"velocity": 6.0,
+		"weight": 1590
+	},
+	{
+		"id": 14,
+		"title": "D2",
+		"speed": 265,
+		"power": 190,
+		"velocity": 5.8,
+		"weight": 1550
+	},
+	{
+		"id": 15,
+		"title": "D3",
+		"speed": 270,
+		"power": 190,
+		"velocity": 5.7,
+		"weight": 1450
+	},
+	{
+		"id": 16,
+		"title": "D4",
+		"speed": 280,
+		"power": 200,
+		"velocity": 5.2,
+		"weight": 1675
 	}
 ]

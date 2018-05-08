@@ -6,7 +6,7 @@ export default class Car
 		this.title = title || '';
 		this.props = {
 			speed: {
-				label: 'kmh',
+				label: 'km/h',
 				value: speed || Car.getRandSpeed(),
 				rule: 'higher-is-better'
 			},
