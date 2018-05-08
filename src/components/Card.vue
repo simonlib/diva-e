@@ -1,17 +1,20 @@
 <template>
-	<transition name="card" mode="out-in">
-		<div class="card" :class="status" v-if="item" :key="item.id">
-			<div class="card-body">
-				<h2 class="h4">Karte {{ item.title }}</h2>
-				<table>
-					<tr v-for="(prop, key) in item.props" :key="prop.id" @click="compareProp(key)" :class="key === value ? 'selected' : ''">
-						<th>{{ prop.label }}</th>
-						<td>{{ prop.value }}</td>
-					</tr>
-				</table>
+	<div>
+		<transition name="card" mode="out-in">
+			<div class="card" :class="'border-' + status" v-if="item" :key="item.id">
+				<div v-if="status" class="card-header" :class="'alert-' + status">{{ statusText }}</div>
+				<div class="card-body">
+					<h2 class="h4">Karte {{ item.title }}</h2>
+					<table>
+						<tr v-for="(prop, key) in item.props" :key="prop.id" @click="compareProp(key)" :class="key === value ? 'selected' : ''">
+							<th>{{ prop.label }}</th>
+							<td>{{ prop.value }}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-		</div>
-	</transition>
+		</transition>
+	</div>
 </template>
 
 
@@ -21,13 +24,18 @@
 		computed: {
 			status() {
 				if(!this.winner) return '';
-				else if(this.winner === -1) return 'border-primary';
-				return this.winner === this.item.id ? 'border-success' : 'border-danger';
+				else if(this.winner === -1) return 'primary';
+				return this.winner === this.item.id ? 'success' : 'danger';
+			},
+			statusText() {
+				if(!this.winner) return '';
+				else if(this.winner === -1) return 'Gleichstand';
+				return this.winner === this.item.id ? 'Gewonnen' : 'Verloren';
 			}
 		},
 		methods: {
 			compareProp(prop) {
-				this.$emit('input', prop)
+				if(!this.status.length) this.$emit('input', prop)
 			},
 		},
 	}
@@ -83,6 +91,10 @@ $primary: #007bff;
 			}
 		}
 	}
+}
+
+.win-info {
+
 }
 
 .card-enter-active,
