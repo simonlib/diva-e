@@ -1,0 +1,98 @@
+[
+	{
+		"id": 1,
+		"title": "A1",
+		"speed": 160,
+		"power": 60,
+		"velocity": 8.5,
+		"weight": 1500
+	},
+	{
+		"id": 2,
+		"title": "A2",
+		"speed": 170,
+		"power": 70,
+		"velocity": 8.2,
+		"weight": 1550
+	},
+	{
+		"id": 3,
+		"title": "A3",
+		"speed": 180,
+		"power": 75,
+		"velocity": 8.0,
+		"weight": 1560
+	},
+	{
+		"id": 4,
+		"title": "A4",
+		"speed": 180,
+		"power": 80,
+		"velocity": 7.9,
+		"weight": 1490
+	},
+	{
+		"id": 5,
+		"title": "B1",
+		"speed": 180,
+		"power": 100,
+		"velocity": 8.0,
+		"weight": 1560
+	},
+	{
+		"id": 6,
+		"title": "B2",
+		"speed": 180,
+		"power": 110,
+		"velocity": 7.8,
+		"weight": 1450
+	},
+	{
+		"id": 7,
+		"title": "B3",
+		"speed": 200,
+		"power": 120,
+		"velocity": 8.5,
+		"weight": 1600
+	},
+	{
+		"id": 8,
+		"title": "B4",
+		"speed": 200,
+		"power": 140,
+		"velocity": 7.5,
+		"weight": 1250
+	},
+	{
+		"id": 9,
+		"title": "C1",
+		"speed": 200,
+		"power": 150,
+		"velocity": 7.0,
+		"weight": 1610
+	},
+	{
+		"id": 10,
+		"title": "C2",
+		"speed": 220,
+		"power": 150,
+		"velocity": 7.0,
+		"weight": 1650
+	},
+	{
+		"id": 11,
+		"title": "C3",
+		"speed": 230,
+		"power": 160,
+		"velocity": 6.9,
+		"weight": 1500
+	},
+	{
+		"id": 12,
+		"title": "C4",
+		"speed": 230,
+		"power": 170,
+		"velocity": 6.5,
+		"weight": 1450
+	}
+]

@@ -1,22 +1,10 @@
 <template>
 	<div class="card" :class="status" v-if="item">
-		<h1>Karte {{ item.id }}</h1>
+		<h1>Karte {{ title }}</h1>
 		<table>
-			<tr @click="compareProp('speed')">
-				<th>km/h</th>
-				<td>{{ item.speed }}</td>
-			</tr>
-			<tr @click="compareProp('power')">
-				<th>PS</th>
-				<td>{{ item.power }}</td>
-			</tr>
-			<tr @click="compareProp('capacity')">
-				<th>ccm</th>
-				<td>{{ item.capacity }}</td>
-			</tr>
-			<tr @click="compareProp('weight')">
-				<th>kg (leer)</th>
-				<td>{{ item.weight }}</td>
+			<tr v-for="(prop, key) in item.props" :key="prop.id" @click="compareProp(key)">
+				<th>{{ prop.label }}</th>
+				<td>{{ prop.value }}</td>
 			</tr>
 		</table>
 	</div>
@@ -25,6 +13,23 @@
 <script>
 	export default {
 		props: ['item', 'status'],
+		computed: {
+			title() {
+				return this.item.title;
+			},
+			speed() {
+				return this.item.props.speed;
+			},
+			power() {
+				return this.item.props.power;
+			},
+			velocity() {
+				return this.item.props.velocity;
+			},
+			weight() {
+				return this.item.props.weight;
+			}
+		},
 		methods: {
 			compareProp(prop) {
 				this.$emit('compare', prop)

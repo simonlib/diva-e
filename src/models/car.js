@@ -1,26 +1,47 @@
 export default class Car
 {
-	constructor(id, speed, power, capacity, weight)
+	constructor(id, title, speed, power, velocity, weight)
 	{
 		this.id = id || 0;
-		this.speed = speed || this.setRandSpeed();
-		this.power = power || this.setRandPower();
-		this.capacity = capacity || this.setRandCapacity();
-		this.weight = weight || this.setRandWeight();
+		this.title = title || '';
+		this.props = {
+			speed: {
+				label: 'kmh',
+				value: speed || Car.getRandSpeed(),
+				rule: 'higher-is-better'
+			},
+			power: {
+				label: 'PS',
+				value: power || Car.getRandPower(),
+				rule: 'higher-is-better'
+			},
+			velocity: {
+				label: '0 - 100 km/h',
+				value: velocity || Car.getRandVelocity(),
+				rule: 'lower-is-better'
+			},
+			weight: {
+				label: 'kg (leer)',
+				value: weight || Car.getRandWeight(),
+				rule: 'lower-is-better'
+			}
+		}
 	}
-	setRandVal(min, max) {
+	static getRandVal(min, max) {
+		// eslint-disable-next-line
+		console.warn('you shouldn\'t use random values anymore');
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
-	setRandSpeed() {
-		return this.setRandVal(150, 250);
+	static getRandSpeed() {
+		return Car.getRandVal(150, 250);
 	}
-	setRandPower() {
-		return this.setRandVal(50, 300);
+	static getRandPower() {
+		return Car.getRandVal(50, 300);
 	}
-	setRandCapacity() {
-		return this.setRandVal(1500, 4500);
+	static getRandVelocity() {
+		return Car.getRandVal(2, 20);
 	}
-	setRandWeight() {
-		return this.setRandVal(1000, 2000);
+	static getRandWeight() {
+		return Car.getRandVal(1000, 2000);
 	}
 }
