@@ -1,14 +1,24 @@
 <template>
 	<div id="app">
-		<div>Karten im Spiel: {{ cars.length }}</div>
-		<div>Genutze Karten: {{ graveyard.length }}</div>
-
-		<button @click="compareCards" :disabled="!cars.length">Neue Karten vergleichen</button>
-
-		<div class="cards">
-			<card :item="leftCard" v-model="compare" :winner="winner"></card>
-			<card :item="rightCard" v-model="compare" :winner="winner"></card>
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<h1>Quartett</h1>
+					<b>Karten im Spiel: {{ cars.length }}</b><br />
+					<b>Genutze Karten: {{ graveyard.length }}</b><br />
+					<button @click="compareCards" :disabled="!cars.length" class="btn btn-primary">Neue Karten vergleichen</button>
+				</div>
+			</div>
+			<div class="cards row justify-content-center">
+				<div class="col-4">
+					<card :item="leftCard" v-model="compare" :winner="winner"></card>
+				</div>
+				<div class="col-4">
+					<card :item="rightCard" v-model="compare" :winner="winner"></card>
+				</div>
+			</div>
 		</div>
+
 	</div>
 </template>
 
@@ -60,8 +70,10 @@
 			compareCards() {
 				this.compare = null;
 				this.putCardsToGraveyard();
-				this.leftCard = this.pullCard();
-				this.rightCard = this.pullCard();
+				setTimeout(() => {
+					this.leftCard = this.pullCard();
+					this.rightCard = this.pullCard();
+				}, 250);
 			},
 			pullCard() {
 				return this.cars.splice(Math.floor(Math.random() * this.cars.length), 1)[0];
@@ -87,19 +99,16 @@
 </script>
 
 <style lang="scss">
+
 	#app {
-		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
-		color: #2c3e50;
 		margin-top: 60px;
 	}
 	.cards {
-		padding: 60px 0;
-		margin: 0 auto;
-		display: flex;
-		justify-content: space-between;
-		width: 600px;
+		margin-top: 60px;
+	}
+	button {
+		margin-top: 15px;
 	}
 </style>

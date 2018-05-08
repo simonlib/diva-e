@@ -1,14 +1,19 @@
 <template>
-	<div class="card" :class="status" v-if="item">
-		<h1>Karte {{ item.title }}</h1>
-		<table>
-			<tr v-for="(prop, key) in item.props" :key="prop.id" @click="compareProp(key)" :class="key === value ? 'chosen' : ''">
-				<th>{{ prop.label }}</th>
-				<td>{{ prop.value }}</td>
-			</tr>
-		</table>
-	</div>
+	<transition name="card" mode="out-in">
+		<div class="card" :class="status" v-if="item" :key="item.id">
+			<div class="card-body">
+				<h2 class="h4">Karte {{ item.title }}</h2>
+				<table>
+					<tr v-for="(prop, key) in item.props" :key="prop.id" @click="compareProp(key)" :class="key === value ? 'selected' : ''">
+						<th>{{ prop.label }}</th>
+						<td>{{ prop.value }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</transition>
 </template>
+
 
 <script>
 	export default {
@@ -16,8 +21,8 @@
 		computed: {
 			status() {
 				if(!this.winner) return '';
-				else if(this.winner === -1) return 'draw';
-				return this.winner === this.item.id ? 'winner' : 'loser';
+				else if(this.winner === -1) return 'border-primary';
+				return this.winner === this.item.id ? 'border-success' : 'border-danger';
 			}
 		},
 		methods: {
@@ -29,42 +34,27 @@
 </script>
 
 <style lang="scss">
+
+$danger: #dc3545;
+$success: #28a745;
+$primary: #007bff;
+
 .card {
-	h1 {
-		font-size: 22px;
-	}
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
-	$border-color: #d3d3d3;
-
-	width: 250px;
-	border: 1px solid $border-color;
-	border-radius: 4px;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-
-	&:hover {
-		box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-	}
-
-	&.winner {
-		border-color: limegreen;
-
-		tr.chosen {
-			color: limegreen;
+	&.border-success {
+		tr.selected {
+			color: $success;
 		}
 	}
-	&.loser {
-		border-color: red;
-
-		tr.chosen {
-			color: red;
+	&.border-danger {
+		tr.selected {
+			color: $danger;
 		}
 	}
-	&.draw {
-		border-color: dodgerblue;
-
-		tr.chosen {
-			color: dodgerblue;
+	&.border-primary {
+		tr.selected {
+			color: $primary;
 		}
 	}
 
@@ -89,9 +79,22 @@
 		}
 		tr:not(:last-of-type) {
 			th,td {
-				border-bottom: 1px dashed $border-color;
+				border-bottom: 1px dashed grey;
 			}
 		}
 	}
 }
+
+.card-enter-active,
+.card-leave-active {
+	transition: all 250ms;
+}
+	.card-enter,
+	.card-leave-to {
+		opacity: 0;
+	}
+	.card-leave,
+	.card-enter-to {
+		opacity: 1;
+	}
 </style>
