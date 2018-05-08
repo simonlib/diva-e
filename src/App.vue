@@ -6,7 +6,7 @@
 					<h1>Quartett</h1>
 					<b>Karten im Spiel: {{ cars.length }}</b><br />
 					<b>Genutze Karten: {{ graveyard.length }}</b><br />
-					<button @click="compareCards" :disabled="!cars.length" class="btn btn-primary">Neue Karten vergleichen</button>
+					<button @click="compareCards" :disabled="buttonDisabled" class="btn btn-primary">Neue Karten vergleichen</button>
 				</div>
 			</div>
 			<div class="cards row justify-content-center">
@@ -46,6 +46,9 @@
 			}
 		},
 		computed: {
+			buttonDisabled() {
+				return !this.cars.length || (this.gameStarted && this.winner === null)
+			},
 			winner() {
 				if(!this.compare) return null;
 				if(this.leftCard.props[this.compare].value === this.rightCard.props[this.compare].value) return -1;
